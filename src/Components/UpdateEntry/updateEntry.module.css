@@ -1,0 +1,159 @@
+.newEntryWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: rgb(241, 241, 241);
+}
+
+.newEntryContainer {
+  width: 80%;
+  box-sizing: border-box;
+  background-color: rgb(241, 241, 241);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.newEntryContainer h1 {
+  color: rgba(0, 0, 0, 0.733);
+  font: 300 2rem "Roboto";
+  text-align: center;
+}
+
+.createEntryForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding: 1vmax 3vmax;
+  justify-content: space-evenly;
+  height: 75%;
+  width: 39%;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.267);
+}
+
+.createEntryForm > div {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.createEntryForm > div > input {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 0.9vmax cursive;
+  outline: none;
+  margin-top: 1.3rem;
+}
+
+.createEntryForm > div > svg {
+  position: absolute;
+  transform: translateX(1vmax);
+  font-size: 1.6vmax;
+  color: rgba(0, 0, 0, 0.623);
+}
+
+#createEntryFormFile > input {
+  display: flex;
+  padding: 0%;
+}
+
+#createEntryFormFile > input::file-selector-button {
+  cursor: pointer;
+  width: 100%;
+  z-index: 2;
+  height: 5vh;
+  border: none;
+  margin: 0%;
+  font: 400 0.8vmax cursive;
+  transition: all 0.5s;
+  padding: 0 1vmax;
+  color: rgba(0, 0, 0, 0.623);
+  background-color: rgb(255, 255, 255);
+}
+
+#createEntryFormFile > input::file-selector-button:hover {
+  background-color: rgb(235, 235, 235);
+}
+
+#createEntryFormImage {
+  width: 100%;
+  overflow: auto;
+}
+
+#createEntryFormImage > img {
+  padding: 1vmax 0;
+  width: 4vmax;
+  margin: 0 0.5vmax;
+}
+#createEntryBtn {
+  border: none;
+  background-color: #5eb4e6;
+  color: white;
+  font: 300 0.9vmax "Roboto";
+  width: 100%;
+  padding: 0.8vmax;
+  cursor: pointer;
+  transition: all 0.5s;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+#createEntryBtn:hover {
+  background-color: #3d78e6;
+}
+
+@media screen and (max-width: 900px) {
+  .createEntryForm > div > input {
+    padding: 2vmax 4vmax;
+    font-size: 0.8rem;
+  }
+  .createEntryForm {
+      width: 80%;
+  }
+  #createEntryBtn {
+      padding: 1rem 0;
+      font-size: 0.8rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .newEntryContainer {
+    background-color: rgb(255, 255, 255);
+  }
+  .createEntryForm {
+    width: 90%;
+  }
+
+  .createEntryForm > div > input,
+  .createEntryForm > div > select,
+  .createEntryForm > div > textarea {
+    padding: 2.5vmax 5vmax;
+    font: 300 1.7vmax cursive;
+  }
+
+  .createEntryForm > div > svg {
+    font-size: 2.8vmax;
+  }
+
+  #createEntryFormFile > img {
+    width: 8vmax;
+    border-radius: 100%;
+  }
+
+  #createEntryFormFile > input::file-selector-button {
+    height: 7vh;
+    font: 400 1.8vmax cursive;
+  }
+
+  #createEntryBtn {
+    font: 300 1.9vmax "Roboto";
+    padding: 1.8vmax;
+  }
+}

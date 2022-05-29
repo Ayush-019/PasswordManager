@@ -1,0 +1,90 @@
+.entriesContainer {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  border-left: 1px solid rgba(0, 0, 0, 0.158);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#entriesHeading {
+  font: 400 2rem "Roboto";
+  padding: 0.5vmax;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.637);
+  transition: all 0.5s;
+  margin: 2rem;
+  text-align: center;
+}
+
+.entriesListTable {
+  background-color: white;
+  border: none !important;
+}
+
+.entriesListTable div {
+  font: 300 1vmax "Roboto";
+  color: rgba(0, 0, 0, 0.678);
+  border: none !important;
+}
+
+.entriesListTable a,
+.entriesListTable button {
+  color: rgba(0, 0, 0, 0.527);
+  transition: all 0.5s;
+}
+
+.entriesListTable a:hover {
+  color: #7daeec;
+}
+
+.entriesListTable button:hover {
+  color: #5595e9;
+}
+.MuiDataGrid-columnHeader {
+    background-color: #7daeec;
+    padding: 1vmax !important;
+}
+.MuiDataGrid-columnHeader div {
+  color: rgb(255, 255, 255);
+}
+
+
+.btn{
+  margin-top: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn button{
+  margin-top: 10rem;
+ text-transform: uppercase;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-color: #626262;
+  color: black;
+  margin-left: 1rem;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  transition: all 0.5s;
+  box-shadow: 5px 5px 5px grey;
+  margin-bottom: 1rem;
+  width: 10rem;
+
+}
+
+.btn > button:hover {
+  background-color: #b796d8;
+}
+
+@media screen and (max-width: 600px) {
+  .entriesListTable div {
+    font: 300 4vw "Roboto";
+  }
+}
