@@ -1,52 +1,61 @@
-import React, { Fragment, useEffect,useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import styles from "./list.css";
-// import { useSelector, useDispatch } from "react-redux";
-import { Link,useNavigate } from "react-router-dom";
-// import { useAlert } from "react-alert";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import {
+  getAllEntries,
+  clearErrors,
+  deleteEntry,
+} from "../../Redux/Actions/entryAction";
 
-const List = ({ history }) => {
+const List = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  const allentries = useSelector((state) => state.allentries);
+  const error = allentries?.error;
+  const entries = allentries?.entries;
+  const deleteentryrow = useSelector((state) => state.deleteentry);
 
- 
+  const deleteProductHandler = (id) => {
+    dispatch(deleteEntry(id));
+    if (deleteentryrow?.success) {
+      alert.success("Entry Deleted Successfully");
+      dispatch(getAllEntries());
+    }
+  };
 
-  // const navigate = useNavigate();
-  //   const dispatch = useDispatch();
+  const addEntryHandler = () => {
+    navigate("/newentry");
+    dispatch(getAllEntries());
+  };
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
 
-  //   const alert = useAlert();
+    if (deleteentryrow?.error) {
+      alert.error(deleteentryrow?.error);
+      dispatch(clearErrors());
+    }
 
-  //   const deleteProductHandler = (id) => {
-  //     dispatch(deleteProduct(id));
-  //   };
-
-    const addEntryHandler = (id) => {
-      // dispatch(deleteProduct(id));
-      // navigate('/newentry');
-    };
-  //   useEffect(() => {
-  //     if (error) {
-  //       alert.error(error);
-  //       dispatch(clearErrors());
-  //     }
-
-  //     if (deleteError) {
-  //       alert.error(deleteError);
-  //       dispatch(clearErrors());
-  //     }
-
-  //     if (isDeleted) {
-  //       alert.success("Product Deleted Successfully");
-  //       history.push("/admin/dashboard");
-  //       dispatch({ type: DELETE_PRODUCT_RESET });
-  //     }
-
-  //     dispatch(getProductAdmin());
-  //   }, [dispatch, alert, error, deleteError, history, isDeleted]);
+    dispatch(getAllEntries());
+  }, [dispatch, alert, error, deleteentryrow]);
 
   const columns = [
-    { field: "id", headerName: "S No.", minWidth: 50, flex: 0.3 },
+    {
+      field: "id",
+      type: "number",
+      headerName: "S No.",
+      minWidth: 50,
+      flex: 0.3,
+    },
 
     {
       field: "sitename",
@@ -55,8 +64,8 @@ const List = ({ history }) => {
       flex: 0.9,
     },
     {
-      field: "name",
-      headerName: "Name",
+      field: "username",
+      headerName: "Username",
       minWidth: 150,
       flex: 0.3,
     },
@@ -78,14 +87,14 @@ const List = ({ history }) => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
+            <Link to={`/updateentry/${params.getValue(params.id, "id")}`}>
               <EditIcon />
             </Link>
 
             <Button
-            //   onClick={() =>
-            //     deleteProductHandler(params.getValue(params.id, "id"))
-            //   }
+              onClick={() =>
+                deleteProductHandler(params.getValue(params.id, "id"))
+              }
             >
               <DeleteIcon />
             </Button>
@@ -97,15 +106,16 @@ const List = ({ history }) => {
 
   const rows = [];
 
-  //   products &&
-  //     products.forEach((item) => {
-  //       rows.push({
-  //         id: item._id,
-  //         stock: item.Stock,
-  //         price: item.price,
-  //         name: item.name,
-  //       });
-  //     });
+  // console.log(entry);
+  entries &&
+    entries.forEach((entry) => {
+      rows.push({
+        id: entry.id,
+        username: entry.username,
+        password: entry.password,
+        sitename: entry.sitename,
+      });
+    });
 
   return (
     <Fragment>

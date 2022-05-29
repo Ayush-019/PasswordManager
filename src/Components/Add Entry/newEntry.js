@@ -1,30 +1,38 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styles from "./newEntry.module.css";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
 import DescriptionIcon from "@material-ui/icons/Description";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import { clearErrors, createEntry } from "../../Redux/Actions/entryAction";
+import { useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
 
-const NewEntry= ({ history }) => {
-//   const dispatch = useDispatch();
+
+const NewEntry= () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const alert  = useAlert();
 
   const [username, setUserName] = useState("");
   const [sitename, setSiteName] = useState("");
   const [password, setPassword] = useState("");
 
-  //   useEffect(() => {
-  //     if (error) {
-  //       alert.error(error);
-  //       dispatch(clearErrors());
-  //     }
+  const entry = useSelector((state) => state.entry);
 
-  //     if (success) {
-  //       alert.success("Product Created Successfully");
-  //       history.push("/admin/dashboard");
-  //       dispatch({ type: NEW_PRODUCT_RESET });
-  //     }
-  //   }, [dispatch, alert, error, history, success]);
+    useEffect(() => {
+      if (entry?.error) {
+        alert.error(entry?.error);
+        dispatch(clearErrors());
+      }
+
+      if (entry?.success) {
+        alert.success("Entry added Successfully");
+        navigate("/");
+        entry.success = false;
+      }
+    }, [dispatch, alert, entry,navigate]);
 
   const createEntrySubmitHandler = (e) => {
     e.preventDefault();
@@ -34,8 +42,7 @@ const NewEntry= ({ history }) => {
       sitename,
       password,
     };
-
-    // dispatch(createProduct(myForm));
+    dispatch(createEntry(myForm));
   };
 
   return (
