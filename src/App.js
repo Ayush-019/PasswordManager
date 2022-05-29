@@ -12,7 +12,7 @@ function App() {
         {/* <Route exact path="/" element={<Login />} /> */}
         <Route exact path="/" element={<List />} />
         <Route exact path="/newentry" element={<NewEntry />} />
-        <Route exact path="/updateentry" element={<UpdateEntry />} />
+        <Route exact path="/updateentry/:id" element={<UpdateEntry />} />
       </Routes>
     </Router>
   );

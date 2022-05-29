@@ -1,30 +1,41 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styles from "./updateEntry.module.css";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
 import DescriptionIcon from "@material-ui/icons/Description";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import { useNavigate ,useParams} from "react-router-dom";
+import { useAlert } from "react-alert";
+import { clearErrors, updateEntry } from "../../Redux/Actions/entryAction";
 
-const UpdateEntry = ({ history }) => {
-  //   const dispatch = useDispatch();
+
+const UpdateEntry = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const alert = useAlert();
+    const params = useParams();
+
+
+    const id = params.id;
 
   const [username, setUserName] = useState("");
   const [sitename, setSiteName] = useState("");
   const [password, setPassword] = useState("");
 
-  //   useEffect(() => {
-  //     if (error) {
-  //       alert.error(error);
-  //       dispatch(clearErrors());
-  //     }
+   const entry = useSelector((state) => state.updateentry);
 
-  //     if (success) {
-  //       alert.success("Product Created Successfully");
-  //       history.push("/admin/dashboard");
-  //       dispatch({ type: NEW_PRODUCT_RESET });
-  //     }
-  //   }, [dispatch, alert, error, history, success]);
+   useEffect(() => {
+     if (entry?.error) {
+       alert.error(entry?.error);
+       dispatch(clearErrors());
+     }
+
+     if (entry?.success) {
+       alert.success("Entry updated Successfully");
+       navigate("/");
+     }
+   }, [dispatch, alert, entry, navigate]);
 
   const createEntrySubmitHandler = (e) => {
     e.preventDefault();
@@ -35,7 +46,7 @@ const UpdateEntry = ({ history }) => {
       password,
     };
 
-    // dispatch(createProduct(myForm));
+    dispatch(updateEntry(id,myForm));
   };
 
   return (
