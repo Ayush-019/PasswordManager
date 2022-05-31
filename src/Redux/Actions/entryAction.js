@@ -23,7 +23,7 @@ export const createEntry = (entry) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `https://passwordmanagerbackend.azurewebsites.net/addentry`,
+      `https://passwordmanagerbackendapi.herokuapp.com/addentry`,
       entry,
       config
     );
@@ -43,7 +43,7 @@ export const createEntry = (entry) => async (dispatch) => {
 export const getAllEntries = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_ENTRIES_REQUEST });
-    const { data } = await axios.get(`https://passwordmanagerbackend.azurewebsites.net/entries`);
+    const { data } = await axios.get(`https://passwordmanagerbackendapi.herokuapp.com/entries`);
 
     dispatch({
       type: ALL_ENTRIES_SUCCESS,
@@ -66,7 +66,7 @@ export const updateEntry = (id, entry) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `https://passwordmanagerbackend.azurewebsites.net/updateentry/${id}`,
+      `https://passwordmanagerbackendapi.herokuapp.com/updateentry/${id}`,
       entry,
       config
     );
@@ -87,7 +87,7 @@ export const deleteEntry = (id) => async (dispatch) => {
     dispatch({ type: DELETE_ENTRY_REQUEST });
 
     const { data } = await axios.delete(
-      `https://passwordmanagerbackend.azurewebsites.net/deleteentry/${id}`
+      `https://passwordmanagerbackendapi.herokuapp.com/deleteentry/${id}`
     );
     dispatch({
       type: DELETE_ENTRY_SUCCESS,

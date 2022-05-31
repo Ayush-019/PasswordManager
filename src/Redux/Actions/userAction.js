@@ -15,9 +15,9 @@ export const login = (user) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { email, password } = user;
-
+  
     const { data } = await axios.post(
-      `https://passwordmanagerbackend.azurewebsites.net/login`,
+      `https://passwordmanagerbackendapi.herokuapp.com/login`,
 
       { email, password },
       // {
@@ -43,7 +43,7 @@ export const login = (user) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    await axios.post("https://passwordmanagerbackend.azurewebsites.net/logout");
+    await axios.post("https://passwordmanagerbackendapi.herokuapp.com/logout");
 
     // Cookies.remove('jwt');
     dispatch({
