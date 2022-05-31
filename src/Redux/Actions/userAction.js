@@ -17,7 +17,7 @@ export const login = (user) => async (dispatch) => {
     const { email, password } = user;
 
     const { data } = await axios.post(
-      `http://localhost:7000/login`,
+      `https://passwordmanagerbackend.azurewebsites.net/login`,
 
       { email, password },
       // {
@@ -43,7 +43,7 @@ export const login = (user) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    await axios.post("http://localhost:7000/logout");
+    await axios.post("https://passwordmanagerbackend.azurewebsites.net/logout");
 
     // Cookies.remove('jwt');
     dispatch({

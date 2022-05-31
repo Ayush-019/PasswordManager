@@ -23,7 +23,7 @@ export const createEntry = (entry) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `http://localhost:7000/addentry`,
+      `https://passwordmanagerbackend.azurewebsites.net/addentry`,
       entry,
       config
     );
@@ -43,7 +43,7 @@ export const createEntry = (entry) => async (dispatch) => {
 export const getAllEntries = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_ENTRIES_REQUEST });
-    const { data } = await axios.get(`http://localhost:7000/entries`);
+    const { data } = await axios.get(`https://passwordmanagerbackend.azurewebsites.net/entries`);
 
     dispatch({
       type: ALL_ENTRIES_SUCCESS,
@@ -66,7 +66,7 @@ export const updateEntry = (id, entry) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `http://localhost:7000/updateentry/${id}`,
+      `https://passwordmanagerbackend.azurewebsites.net/updateentry/${id}`,
       entry,
       config
     );
@@ -87,7 +87,7 @@ export const deleteEntry = (id) => async (dispatch) => {
     dispatch({ type: DELETE_ENTRY_REQUEST });
 
     const { data } = await axios.delete(
-      `http://localhost:7000/deleteentry/${id}`
+      `https://passwordmanagerbackend.azurewebsites.net/deleteentry/${id}`
     );
     dispatch({
       type: DELETE_ENTRY_SUCCESS,
