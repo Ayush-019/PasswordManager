@@ -33,7 +33,8 @@ const UpdateEntry = () => {
 
      if (entry?.success) {
        alert.success("Entry updated Successfully");
-       navigate("/");
+       navigate("/home");
+       entry.success = false;
      }
    }, [dispatch, alert, entry, navigate]);
 

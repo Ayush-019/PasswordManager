@@ -29,7 +29,7 @@ const NewEntry= () => {
 
       if (entry?.success) {
         alert.success("Entry added Successfully");
-        navigate("/");
+        navigate("/home");
         entry.success = false;
       }
     }, [dispatch, alert, entry,navigate]);

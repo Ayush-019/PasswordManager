@@ -1,11 +1,22 @@
+.entriesWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .entriesContainer {
   width: 100%;
+
   box-sizing: border-box;
-  background-color: rgb(255, 255, 255);
   border-left: 1px solid rgba(0, 0, 0, 0.158);
   display: flex;
   flex-direction: column;
   height: 100vh;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 #entriesHeading {
@@ -18,8 +29,22 @@
   text-align: center;
 }
 
+.entriesHeadingBox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+#logout{
+  margin-right: 2rem;
+  width: 3rem;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
 .entriesListTable {
-  background-color: white;
+  width: 100vw;
   border: none !important;
 }
 
@@ -43,23 +68,18 @@
   color: #5595e9;
 }
 .MuiDataGrid-columnHeader {
-    background-color: #7daeec;
-    padding: 1vmax !important;
+  background-color: #7daeec;
+  padding: 1vmax !important;
 }
 .MuiDataGrid-columnHeader div {
   color: rgb(255, 255, 255);
 }
 
-
-.btn{
-  margin-top: 10rem;
+.btn {
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
-.btn button{
-  margin-top: 10rem;
- text-transform: uppercase;
+.btn button {
+  text-transform: uppercase;
   border: 1px solid black;
   background-color: white;
   color: black;
@@ -70,17 +90,17 @@
   color: black;
   margin-left: 1rem;
   font-weight: bold;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
   transition: all 0.5s;
   box-shadow: 5px 5px 5px grey;
   margin-bottom: 1rem;
   width: 10rem;
-
 }
 
 .btn > button:hover {
-  background-color: #b796d8;
+  background-color: #292929;
+  color: white;
 }
 
 @media screen and (max-width: 600px) {

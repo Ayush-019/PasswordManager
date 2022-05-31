@@ -1,17 +1,20 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { DataGrid } from "@material-ui/data-grid";
-import styles from "./list.css";
+import "./list.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import LogoutIcon from "../../Assets/logout.png";
 import {
   getAllEntries,
   clearErrors,
   deleteEntry,
 } from "../../Redux/Actions/entryAction";
+import { logout } from "../../Redux/Actions/userAction";
 
 const List = () => {
   const navigate = useNavigate();
@@ -30,9 +33,33 @@ const List = () => {
     }
   };
 
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/");
+    alert.success("Logged Out Successfully");
+  };
+
   const addEntryHandler = () => {
     navigate("/newentry");
     dispatch(getAllEntries());
+  };
+
+  const [val, setVal] = useState([]);
+
+  useEffect(() => {
+    if (entries) {
+      setVal(new Array(entries.length).fill(false));
+    }
+  }, [entries]);
+
+  const clickHanler = (id) => {
+    entries &&
+      setVal((val) => {
+        const newVal = [...val];
+        let elementIndex = entries.findIndex((el) => el.id === id);
+        newVal[elementIndex] = !val[elementIndex];
+        return newVal;
+      });
   };
   useEffect(() => {
     if (error) {
@@ -52,36 +79,63 @@ const List = () => {
     {
       field: "id",
       type: "number",
-      headerName: "S No.",
-      minWidth: 50,
-      flex: 0.3,
+      headerName: "SNo.",
+      // minWidth: 100,
+      flex: 0.5,
+      headerAlign: "left",
+      align: "left",
     },
 
     {
       field: "sitename",
       headerName: "Site Name",
-      minWidth: 250,
-      flex: 0.9,
+      // minWidth: 250,
+      flex: 0.7,
     },
     {
       field: "username",
       headerName: "Username",
-      minWidth: 150,
-      flex: 0.3,
+      type: "password",
+      // minWidth: 150,
+      flex: 0.7,
     },
 
     {
       field: "password",
       headerName: "Password",
-      minWidth: 270,
-      flex: 0.5,
+      // minWidth: 270,
+      flex: 0.7,
+    },
+    {
+      field: "showPassword",
+      headerName: "show Password",
+      // minWidth: 270,
+      flex: 0.6,
+      renderCell: (params) => {
+        return (
+          <Button
+            id="myButton"
+            onClick={() => clickHanler(params.getValue(params.id, "id"))}
+          >
+            <VisibilityIcon />
+          </Button>
+          // <Fragment>
+          //   <input
+          //     type="button"
+          //     id="myButton"
+          //     value="Show Password"
+          //     onClick={() => clickHanler(params.getValue(params.id, "id"))}
+          //   ></input>
+          // </Fragment>
+        );
+      },
     },
 
     {
       field: "actions",
-      flex: 0.3,
+      flex: 0.7,
       headerName: "Actions",
-      minWidth: 150,
+      // minWidth: 150,
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -108,38 +162,47 @@ const List = () => {
 
   // console.log(entry);
   entries &&
-    entries.forEach((entry) => {
+    entries.forEach((entry, index) => {
       rows.push({
         id: entry.id,
         username: entry.username,
-        password: entry.password,
+        password: val[index] ? entry.password : "********",
         sitename: entry.sitename,
       });
     });
 
   return (
-    <Fragment>
-      <div className={styles.entriesWrapper}>
-        <div className={styles.entriesContainer}>
-          <h1 id={styles.entriesHeading}>ALL Entries</h1>
-
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            className={styles.entriesListTable}
-            autoHeight
+    <div className="entriesWrapper">
+      <div className="entriesContainer">
+        <div>
+          <img
+            id="logout"
+            src={LogoutIcon}
+            alt="logout"
+            onClick={logoutHandler}
           />
         </div>
+
+        <div className="entriesHeadingBox">
+          <h1 id="entriesHeading">ALL Entries</h1>
+        </div>
+
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={10}
+          disableSelectionOnClick
+          className="entriesListTable"
+          autoHeight
+        />
       </div>
 
-      <div className={styles.btn}>
-        <button className={styles.addButton} onClick={addEntryHandler}>
+      <div className="btn">
+        <button className="addButton" onClick={addEntryHandler}>
           Add New Entry
         </button>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

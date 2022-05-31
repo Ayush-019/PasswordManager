@@ -7,8 +7,9 @@ import {
   allEntriesReducer,
   createEntryReducer,
   updateEntry,
-  deleteEntry
+  deleteEntry,
 } from "./Redux/Reducers/entryReducer";
+import { userReducer } from "./Redux/Reducers/userReducer";
 
 
 const reducer  = combineReducers({
@@ -16,6 +17,7 @@ const reducer  = combineReducers({
     entry:createEntryReducer,
     updateentry:updateEntry,
     deleteentry:deleteEntry,
+    user:userReducer
 });
 
 const middleware = [thunk];

@@ -1,52 +1,48 @@
 import React, { useState, useEffect } from "react";
 import styles from "./login.module.css";
 import bg from "../../Assets/christopher-gower-m_HRfLhgABo-unsplash.jpg";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import { useAlert } from "react-alert";
+import { login, clearErrors } from "../../Redux/Actions/userAction";
 
 const Login = () => {
-//   const dispatch = useDispatch();
-//   const alert = useAlert();
-//   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [user, setUser] = useState({
-    name: "",
-    MobileNo: "",
-    TableNo: "",
-  });
+  const user = useSelector((state) => state.user);
 
-//   const detailsDataChange = (e) => {
-//     setUser({ ...user, [e.target.name]: e.target.value });
-//   };
-//   const detailsSubmit = (e) => {
-//     e.preventDefault();
+  const detailsSubmit = (e) => {
+    e.preventDefault();
 
-//     const myForm = {
-//       name: name,
-//       MobileNo: MobileNo,
-//       TableNo: TableNo,
-//     };
-//     dispatch(register(myForm));
-//   };
+    const myForm = {
+      email,
+      password,
+    };
+    dispatch(login(myForm));
+  };
 
-//   useEffect(() => {
-//     if (error) {
-//       alert.error(error);
-//       dispatch(clearErrors());
-//     }
+  useEffect(() => {
+    if (user?.error) {
+      alert.error(user?.error);
+      dispatch(clearErrors());
+    }
 
-//     if (isRegistered) {
-//       navigate("/home");
-//     }
-//   }, [dispatch, error, alert, navigate, isRegistered]);
+    if (user?.isAuthenticated) {
+      navigate("/home");
+    }
+  }, [dispatch, alert, navigate, user]);
 
   return (
     <div className={styles.detailsWrapper}>
       <div className={styles.leftContainer}>
-        <img src={bg} alt="Rise n Dine"></img>
+        <img src={bg} alt="Password Manager"></img>
       </div>
       <div className={styles.rightContainer}>
         <div className={styles.rightWrapper}>
@@ -56,7 +52,7 @@ const Login = () => {
           <form
             className={styles.detailsForm}
             encType="multipart/form-data"
-            // onSubmit={detailsSubmit}
+            onSubmit={detailsSubmit}
           >
             <div className={styles.loginEmail}>
               <MailOutlineIcon />
@@ -64,8 +60,8 @@ const Login = () => {
                 type="email"
                 placeholder="Email"
                 required
-                // value={loginEmail}
-                // onChange={(e) => setLoginEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className={styles.loginPassword}>
@@ -74,8 +70,8 @@ const Login = () => {
                 type="password"
                 placeholder="Password"
                 required
-                // value={loginPassword}
-                // onChange={(e) => setLoginPassword(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
